@@ -1,0 +1,47 @@
+/* Add top margin to all pages */
+.page {
+    margin-top: 100px;
+  }
+  
+  /* Style for header */
+  .header {
+    background-color: #FC4C02;
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .summary h2, .stats h2, .chart-section h2 {
+    font-size: 1.75rem;
+    color: #FC4C02;
+  }
+  
+  .stats {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+  }
+  
+  .stat-item {
+    margin-bottom: 1.5rem;
+  }
+  
+  .stat-item h2 {
+    font-size: 1.5rem;
+    color: #FC4C02;
+  }
+  
+  .stat-item p {
+    font-size: 1.25rem;
+  }
+  
+  /* Style for the marathon image on Page 3 */
+  .marathon-img img {
+    max-width: 80%; /* Scales down image size */
+    height: auto;
+    margin-top: 20px; /* Adds spacing from top of page */
+    border-radius: 8px;
+  }
+  

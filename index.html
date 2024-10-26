@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strava Wrapped</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+  <div class="container text-center">
+    <!-- Page 1: Yearly Exercise Summary -->
+    <section class="page" id="page1">
+      <header class="header">
+        <h1>Strava Wrapped</h1>
+      </header>
+      <div class="summary">
+        <h2>You've exercised a total of <strong>4289 minutes</strong> this year!</h2>
+        <p>Comparison with last year:</p>
+        <canvas id="yearComparisonChart"></canvas>
+      </div>
+      <button class="btn" id="nextPage1">Next</button>
+    </section>
+
+    <!-- Page 2: Strava Highlights -->
+    <section class="page" id="page2" style="display: none;">
+      <header class="header">
+        <h1>Strava Highlights</h1>
+      </header>
+      <section class="stats">
+        <div class="stat-item">
+          <h2>🏃 Longest Run of the Year</h2>
+          <p>12.5 miles</p>
+        </div>
+        <div class="stat-item">
+          <h2>🏆 Newest PR of the Year</h2>
+          <p>5K in 21:34</p>
+        </div>
+        <div class="stat-item">
+          <h2>⏱ Minutes Exercised this Year</h2>
+          <p>4,289 minutes</p>
+        </div>
+        <div class="stat-item">
+          <h2>🔥 Most Consecutive Workout Days</h2>
+          <p>25 days</p>
+        </div>
+        <div class="stat-item">
+          <h2>⛰ Elevation Gain</h2>
+          <p>11,903 ft</p>
+        </div>
+        <div class="stat-item">
+          <h2>🏁 Total Miles Ran</h2>
+          <p>569.8 miles</p>
+        </div>
+      </section>
+      <button class="btn" id="prevPage1">Back</button>
+      <button class="btn" id="nextPage2">Next</button>
+    </section>
+
+    <!-- Page 3: Marathon Personal Best -->
+    <section class="page" id="page3" style="display: none;">
+      <header class="header">
+        <h1>Your Marathon Personal Best</h1>
+      </header>
+      <div class="marathon-img">
+        <img src="https://preview.redd.it/la-marathon-7x-pr-v0-0d378bmr8jpa1.jpg?width=1080&crop=smart&auto=webp&s=51e531120aa2d39973e68c2ea3860afecd633208" alt="Marathon Image" class="img-fluid rounded">
+      </div>
+      <button class="btn" id="prevPage2">Back</button>
+      <button class="btn" id="nextPage3">Next</button>
+    </section>
+
+    <!-- Page 4: Fastest Runs of the Year -->
+    <section class="page" id="page4" style="display: none;">
+      <header class="header">
+        <h1>Fastest Runs of the Year</h1>
+      </header>
+      <section class="chart-section">
+        <h2>🏅 Top 5 Fastest Runs (Min/Mile)</h2>
+        <canvas id="fastestRunsChart"></canvas>
+      </section>
+      <button class="btn" id="prevPage3">Back</button>
+    </section>
+  </div>
+
+  <script>
+    // Document ready function
+    $(document).ready(function() {
+      // Page Navigation
+      $('#nextPage1').on('click', function() {
+        $('#page1').hide();
+        $('#page2').show();
+      });
+
+      $('#prevPage1').on('click', function() {
+        $('#page2').hide();
+        $('#page1').show();
+      });
+
+      $('#nextPage2').on('click', function() {
+        $('#page2').hide();
+        $('#page3').show();
+      });
+
+      $('#prevPage2').on('click', function() {
+        $('#page3').hide();
+        $('#page2').show();
+      });
+
+      $('#nextPage3').on('click', function() {
+        $('#page3').hide();
+        $('#page4').show();
+      });
+
+      $('#prevPage3').on('click', function() {
+        $('#page4').hide();
+        $('#page3').show();
+      });
+
+      // Chart for Yearly Exercise Comparison
+      const ctx1 = document.getElementById('yearComparisonChart').getContext('2d');
+      const yearComparisonChart = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: ['2023', '2024'],
+          datasets: [{
+            label: 'Minutes Exercised',
+            data: [2240, 4289],
+            backgroundColor: ['#ddd', '#FC4C02'],
+            borderColor: ['#ddd', '#FC4C02'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Minutes',
+                color: '#333'
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
+      });
+
+      // Chart for Top 5 Fastest Runs (Min/Mile)
+      const ctx2 = document.getElementById('fastestRunsChart').getContext('2d');
+      const fastestRunsChart = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: ["Jan 15", "Feb 5", "Mar 20", "Apr 7", "May 25"],
+          datasets: [{
+            label: 'Pace (Min/Mile)',
+            data: [6.8, 6.98, 7.01, 7.43, 7.73],
+            backgroundColor: '#FC4C02',
+            borderColor: '#FC4C02',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Pace (Min/Mile)',
+                color: '#333'
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
